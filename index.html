@@ -24,10 +24,13 @@
             return computerSelection;
         }
 
+        //Create the function to play a round of Rock, Paper, Scissors
         function playRound(computerSelection, playerSelection) {
 
+            //Initialize the variable to store the result.
             let result = 0;
 
+            //Compare the two choices - If equal call a tie. Else declare loss or victory.
             if (computerSelection.toUpperCase() === playerSelection.toUpperCase()) {
                 result = "We have a tie!"
             } else if (computerSelection.toUpperCase() === "ROCK" && playerSelection.toUpperCase() === "PAPER") {
@@ -44,11 +47,8 @@
                 result = "You lose! Scissors beat Paper";
             }          
                 return result;
-            }
-            
+            }        
 
-            
-        
         const playerSelection = "rock";
         const computerSelection = getComputerChoice();
         console.log(playRound(computerSelection, playerSelection));
