@@ -48,11 +48,37 @@
             }          
                 return result;
             }        
+        //Create the function that stores wins and declares the best of 5
+        function game() {
+            let computerScore = 0;
+            let playerScore = 0;
 
-        const playerSelection = "rock";
-        const computerSelection = getComputerChoice();
-        console.log(playRound(computerSelection, playerSelection));
-        console.log(computerSelection);
+            //Loops five times to simulate the five rounds
+            for (let i = 0; i < 5; i++) {
+                let computerSelection = getComputerChoice(); //Calls the function for the computer's choice
+                let playerSelection = prompt("Rock, Paper, Scissors!"); //Prompts the user to choose their move
+
+                let round = playRound(computerSelection, playerSelection); //Stores the result of each round
+
+                //Checks who won the round and adds to their tally. If there's a tie, does nothing.
+                if (round.includes("win")) {
+                    playerScore += 1;
+                } else if (round.includes("lose")) {
+                    computerScore += 1;
+                } else {
+
+                }
+                console.log(round); //Outputs the round's result
+                console.log("The score is " + playerScore + " - " + computerScore); //Outputs the score up to the current round
+            }
+        }
+
+        game();
+
+        // const playerSelection = "rock";
+        // const computerSelection = getComputerChoice();
+        // console.log(playRound(computerSelection, playerSelection));
+        // console.log(computerSelection);
 
     </script>
 </body>
