@@ -7,14 +7,78 @@
     <title>Rock, Paper, Scissors</title>
 </head>
 <body>
-    <script>
+    <div id="score">
+        <div id="player">0</div>
+        <div id="cpu">0</div>
+        <div id="round">0</div>
+    </div>
+    <div class="choices">
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+    </div>
+    <div id="final"></div>
+    <div id="restart"></div>
+        <script>
+        const buttons = document.querySelectorAll("button");
+        const playerBoard = document.querySelector('#player');
+        const computerBoard = document.querySelector('#cpu');
+        const turn = document.querySelector('#round');
+        const finalScore = document.querySelector('#final');
+
+        let result;
+        let playerScore = 0;
+        let computerScore = 0;
+        let round = 0;
+
+        buttons.forEach((button) => {
+            button.addEventListener('click', () => {
+                let playerSelection = button.id;
+                let computerSelection = getComputerChoice();
+
+                let result = playRound(computerSelection, playerSelection);
+                console.log(result);
+
+                if (result.includes("win")) {
+                    playerScore += 1;
+                    console.log("Player: " + playerScore);
+                    playerBoard.textContent = playerScore;
+                } else if (result.includes("lose")) {
+                    computerScore += 1;
+                    console.log("CPU: " + computerScore);
+                    computerBoard.textContent = computerScore;
+                } else {
+
+                }
+
+                if (playerScore == 5) {
+                    const playerWin = document.createElement('div');
+                    playerWin.classList.add('win');
+                    playerWin.textContent = 'Congratulations! You win!'
+                    finalScore.appendChild(playerWin);
+                } if (computerScore == 5) {
+                    const computerWin = document.createElement('div');
+                    computerWin.classList.add('win');
+                    computerWin.textContent = 'Bummer! You lose!'
+                    finalScore.appendChild(computerWin);
+                }
+                
+
+                round++;
+                turn.textContent = round;
+                });
+
+                             
+            });
+          
+
         //Creates a function to get the computer's selection for the game
         function getComputerChoice() {
             let cpuChoice = Math.floor(Math.random() * 3) + 1; //Picks a random int between 1 and 3
             let computerSelection = 0; //Initializes a variable to store the computer's selection
 
             //Assign the proper move to each number.
-            if (cpuChoice === '1') {
+            if (cpuChoice == '1') {
                 computerSelection = "Rock"; 
             } else if (cpuChoice == '2') {
                 computerSelection = "Paper";
@@ -48,33 +112,7 @@
             }          
                 return result;
             }        
-        //Create the function that stores wins and declares the best of 5
-        function game() {
-            let computerScore = 0;
-            let playerScore = 0;
-
-            //Loops five times to simulate the five rounds
-            for (let i = 0; i < 5; i++) {
-                let computerSelection = getComputerChoice(); //Calls the function for the computer's choice
-                let playerSelection = prompt("Rock, Paper, Scissors!"); //Prompts the user to choose their move
-
-                let round = playRound(computerSelection, playerSelection); //Stores the result of each round
-
-                //Checks who won the round and adds to their tally. If there's a tie, does nothing.
-                if (round.includes("win")) {
-                    playerScore += 1;
-                } else if (round.includes("lose")) {
-                    computerScore += 1;
-                } else {
-
-                }
-                console.log(round); //Outputs the round's result
-                console.log("The score is " + playerScore + " - " + computerScore); //Outputs the score up to the current round
-            }
-        }
-
-        game();
-
+        
         // const playerSelection = "rock";
         // const computerSelection = getComputerChoice();
         // console.log(playRound(computerSelection, playerSelection));
