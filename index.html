@@ -13,19 +13,21 @@
         <div id="round">0</div>
     </div>
     <div class="choices">
-        <button id="rock">Rock</button>
-        <button id="paper">Paper</button>
-        <button id="scissors">Scissors</button>
+        <button class="choice" id="rock">Rock</button>
+        <button class="choice" id="paper">Paper</button>
+        <button class="choice" id="scissors">Scissors</button>
     </div>
     <div id="final"></div>
-    <div id="restart"></div>
+    <div id="restart" style="display: none"><button id="play">Play Again</button></div>
         <script>
-        const buttons = document.querySelectorAll("button");
+        const choices = document.querySelector(".choices");
+        const buttons = document.querySelectorAll(".choice");
         const playerBoard = document.querySelector('#player');
         const computerBoard = document.querySelector('#cpu');
         const turn = document.querySelector('#round');
         const finalScore = document.querySelector('#final');
-
+        const playButton = document.querySelector('#restart');
+            
         let result;
         let playerScore = 0;
         let computerScore = 0;
@@ -49,27 +51,32 @@
                     computerBoard.textContent = computerScore;
                 } else {
 
-                }
+                }         
+
+                round++;
+                turn.textContent = round;
 
                 if (playerScore == 5) {
                     const playerWin = document.createElement('div');
                     playerWin.classList.add('win');
                     playerWin.textContent = 'Congratulations! You win!'
                     finalScore.appendChild(playerWin);
+                    playButton.removeAttribute('style');
+                    choices.setAttribute('style', 'display: none');
                 } if (computerScore == 5) {
                     const computerWin = document.createElement('div');
                     computerWin.classList.add('win');
                     computerWin.textContent = 'Bummer! You lose!'
                     finalScore.appendChild(computerWin);
+                    playButton.removeAttribute('style');
+                    choices.setAttribute('style', 'display: none');
                 }
-                
-
-                round++;
-                turn.textContent = round;
+                playButton.addEventListener('click', refreshPage); 
                 });
-
-                             
+                                            
             });
+        
+            
           
 
         //Creates a function to get the computer's selection for the game
@@ -111,12 +118,25 @@
                 result = "You lose! Scissors beat Paper";
             }          
                 return result;
-            }        
+            }
         
-        // const playerSelection = "rock";
-        // const computerSelection = getComputerChoice();
-        // console.log(playRound(computerSelection, playerSelection));
-        // console.log(computerSelection);
+        //Create a function to reset game state
+        // function reset() {
+        // let playerScore = 0;
+        // let computerScore = 0;
+        // let round = 0;
+        
+        // playerBoard.textContent = playerScore;
+        // computerBoard.textContent = computerScore;
+        // turn.textContent = round;
+        // playButton.setAttribute('style', 'display: none');
+        // finalScore.textContent = ' ';
+        // choices.removeAttribute('style');
+        // }
+
+        // function refreshPage() {
+        //     window.location.reload();
+        // }
 
     </script>
 </body>
